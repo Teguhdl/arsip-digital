@@ -21,15 +21,15 @@
             <li class="nav-item dropdown">
                 <a href="#" class="nav-link has-dropdown"><i class="fas fa-user"></i> <span>Akun</span></a>
                 <ul class="dropdown-menu">
-                    <li><a class="nav-link" href="{{ url('/')}}">Ganti Password</a></li>
-                    <li><a class="nav-link" href="{{ url('/')}}">Manage Akun</a></li>
+                    <li><a class="nav-link" href="{{ route('user.show-change-password') }}">Ganti Password</a></li>
+                    <li><a class="nav-link" href="{{ url('/user')}}">Manage Akun</a></li>
                 </ul>
             </li>
 
             <li class="nav-item dropdown">
                 <a href="#" class="nav-link has-dropdown"><i class="fas fa-file"></i> <span>Kategori</span></a>
                 <ul class="dropdown-menu">
-                    <li><a class="nav-link" href="{{ url('/')}}">Kategori Arsip</a></li>
+                    <li><a class="nav-link" href="{{ url('/kategori-arsip')}}">Kategori Arsip</a></li>
                 </ul>
             </li>
             @endif

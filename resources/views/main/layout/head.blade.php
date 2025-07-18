@@ -9,6 +9,7 @@
   <link rel="stylesheet" href="{{ asset('assets/css/all.css') }}">
     <!-- Tambahkan SweetAlert CDN di bagian <head> -->
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script src="https://cdn.jsdelivr.net/npm/qrcodejs@1.0.0/qrcode.min.js"></script>
 
   <!-- CSS Libraries -->
 

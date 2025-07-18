@@ -9,7 +9,6 @@
   <div id="app">
     <div class="main-wrapper">
       <div class="navbar-bg"></div>
-      
       <nav class="navbar navbar-expand-lg main-navbar">
         <form class="form-inline mr-auto">
           <ul class="navbar-nav mr-3">
@@ -91,7 +90,7 @@
         </ul>
       </nav>
       @include('main.layout.sidebar')
-      <div class="main-content">
+      <div class="main-content" >
         @yield('content') <!-- Tempat untuk konten dari halaman lain -->
       </div>
       @include('main.layout.footer')

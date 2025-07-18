@@ -9,6 +9,16 @@ document.addEventListener('DOMContentLoaded', function () {
       showConfirmButton: true,
     });
   @endif
+
+   @if(session('Success'))
+    Swal.fire({
+      title: "Login Informasion",
+      text: "{{ session('success') }}",
+      icon: "success",
+      showCancelButton: false,
+      showConfirmButton: true,
+    });
+  @endif
 });
 
 
