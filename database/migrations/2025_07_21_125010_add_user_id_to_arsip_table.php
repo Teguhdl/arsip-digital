@@ -11,9 +11,8 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::table('kategori_arsip', function (Blueprint $table) {
-            $table->unsignedBigInteger('user_id')->nullable()->after('induk_id');
-
+        Schema::table('arsip', function (Blueprint $table) {
+            $table->unsignedBigInteger('user_id')->nullable()->after('file');
             $table->foreign('user_id')->references('id')->on('users')->onDelete('set null');
         });
     }
@@ -23,7 +22,7 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::table('kategori_arsip', function (Blueprint $table) {
+        Schema::table('arsip', function (Blueprint $table) {
             //
         });
     }

@@ -30,7 +30,6 @@
                             <input type="hidden" name="user_id" value="{{ session('user.id') }}">
                         </div>
 
-
                         <div class="form-group">
                             <label for="kode_arsip">Kode Arsip</label>
                             <input type="text" name="kode_arsip" id="kode_arsip" class="form-control" value="{{ $kode }}" readonly>

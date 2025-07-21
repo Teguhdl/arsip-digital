@@ -25,29 +25,29 @@ class ArsipController extends Controller
         return view('main.arsip.create', compact('kategori', 'kode'));
     }
 
-   public function store(Request $request)
-{
-    $request->validate([
-        'nama_arsip' => 'required',
-        'deskripsi' => 'nullable',
-        'kategori_arsip_id' => 'required',
-        'file' => 'required|mimes:pdf,jpg,jpeg,png|max:2048',
-    ]);
+    public function store(Request $request)
+    {
+        $request->validate([
+            'nama_arsip' => 'required',
+            'deskripsi' => 'nullable',
+            'kategori_arsip_id' => 'required',
+            'file' => 'required|mimes:pdf,jpg,jpeg,png|max:2048',
+        ]);
 
-    $file = $request->file('file');
-    $filePath = $file->store('arsip', 'public');
+        $file = $request->file('file');
+        $filePath = $file->store('arsip', 'public');
 
-    Arsip::create([
-        'user_id' => $request->user_id,
-        'kode_arsip' => $request->kode_arsip,
-        'nama_arsip' => $request->nama_arsip,
-        'deskripsi' => $request->deskripsi,
-        'kategori_arsip_id' => $request->kategori_arsip_id,
-        'file' => $filePath,
-    ]);
+        Arsip::create([
+            'user_id' => $request->user_id,
+            'kode_arsip' => $request->kode_arsip,
+            'judul' => $request->nama_arsip,
+            'deskripsi' => $request->deskripsi,
+            'kategori_arsip_id' => $request->kategori_arsip_id,
+            'file' => $filePath,
+        ]);
 
-    return redirect()->route('arsip.index')->with('success', 'Data arsip berhasil disimpan.');
-}
+        return redirect()->route('arsip.index')->with('success', 'Data arsip berhasil disimpan.');
+    }
 
 
 

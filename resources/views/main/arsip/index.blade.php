@@ -23,18 +23,22 @@
                         <table class="table table-bordered" id="table-1">
                             <thead>
                                 <tr>
+                                    <th>No</th>
                                     <th>Kode</th>
                                     <th>Nama Arsip</th>
                                     <th>Kategori</th>
                                     <th>File</th>
+                                    <th>Qr Code </th>
                                     <th>Aksi</th>
                                 </tr>
                             </thead>
                             <tbody>
+                                @php $no = 1; @endphp
                                 @foreach($arsip as $a)
                                 <tr>
+                                    <td>{{ $no++ }}</td>
                                     <td>{{ $a->kode_arsip }}</td>
-                                    <td>{{ $a->nama_arsip }}</td>
+                                    <td>{{ $a->judul }}</td>
                                     <td>{{ $a->kategori->nama_kategori ?? '-' }}</td>
                                     <td>
                                         @if($a->file)
@@ -42,6 +46,16 @@
                                         @else
                                         Tidak ada
                                         @endif
+                                    </td>
+                                    <td>
+                                    <div id="qrcode-{{ $a->kode_arsip }}"></div>
+                                      <script>
+                                        new QRCode(document.getElementById("qrcode-{{ $a->kode_arsip }}"), {
+                                        text: "{{ $a->kode_arsip }}",
+                                        width: 64,
+                                        height: 64
+                                        });
+                                    </script>
                                     </td>
                                     <td>
                                         <a href="{{ route('arsip.show', $a->id) }}" class="btn btn-info btn-sm">Detail</a>

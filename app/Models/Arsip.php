@@ -12,7 +12,7 @@ class Arsip extends Model
 
     protected $fillable = [
         'kode_arsip',
-        'nama_arsip',
+        'judul',
         'kategori_arsip_id',
         'deskripsi',
         'file',
