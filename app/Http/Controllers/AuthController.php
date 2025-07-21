@@ -29,9 +29,9 @@ class AuthController extends Controller
                 'id' => $user->id,
                 'nama_user' => $user->nama_user,
                 'last_update' => $user->updated_at,
-                'akses' => explode(',', $user->akses ?? '') 
+                'akses' => $user->akses
             ]]);
-    
+            
             return redirect()->intended('home')->with('success', 'Login berhasil!');
         }
     

@@ -27,13 +27,13 @@ class UserController extends Controller
             'username'   => 'required|unique:user_login,username',
             'nama_user'  => 'required|string',
             'password'   => 'required|string|min:6',
-            'akses'      => 'nullable|string',
+            'akses'      => 'required|in:Administrator,Petugas,User',
         ]);
 
         UserModel::create([
             'username'  => $request->username,
             'nama_user' => $request->nama_user,
-            'password'  => md5($request->password), // Bisa ganti dengan bcrypt atau Hash::make jika migrasi
+            'password'  => md5($request->password),
             'akses'     => $request->akses,
         ]);
 
@@ -54,7 +54,7 @@ class UserController extends Controller
             'username'   => 'required|unique:user_login,username,' . $id,
             'nama_user'  => 'required|string',
             'password'   => 'nullable|string|min:6',
-            'akses'      => 'nullable|string',
+            'akses'      => 'required|in:Administrator,Petugas,User',
         ]);
 
         $user->username  = $request->username;

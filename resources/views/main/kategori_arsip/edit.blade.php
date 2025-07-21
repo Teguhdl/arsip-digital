@@ -29,7 +29,7 @@
 
                         <div class="form-group">
                             <label for="nama">Nama Kategori</label>
-                            <input type="text" name="nama" id="nama" class="form-control" value="{{ $kategori->nama_kategori }}" required>
+                            <input type="text" name="nama_kategori" id="nama" class="form-control" value="{{ $kategori->nama_kategori }}" required>
                         </div>
 
                         <div class="form-group">

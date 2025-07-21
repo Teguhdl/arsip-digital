@@ -16,7 +16,7 @@
             <li class="nav-item dropdown">
                 <a href="{{ url('/home')}}" class="nav-link"><i class="fas fa-fire"></i><span>Dashboard</span></a>
             </li>
-            @if(in_array('admin', $akses))
+           @if($akses === 'Administrator')
             <li class="menu-header">Data Master</li>
             <li class="nav-item dropdown">
                 <a href="#" class="nav-link has-dropdown"><i class="fas fa-user"></i> <span>Akun</span></a>
@@ -25,14 +25,25 @@
                     <li><a class="nav-link" href="{{ url('/user')}}">Manage Akun</a></li>
                 </ul>
             </li>
-
+            @endif
+             @if($akses === 'Administrator' || $akses === 'Petugas')
+            <li class="menu-header">Data Arsip</li>
             <li class="nav-item dropdown">
                 <a href="#" class="nav-link has-dropdown"><i class="fas fa-file"></i> <span>Kategori</span></a>
                 <ul class="dropdown-menu">
                     <li><a class="nav-link" href="{{ url('/kategori-arsip')}}">Kategori Arsip</a></li>
                 </ul>
             </li>
-            @endif
+            <li class="nav-item dropdown">
+                <a href="#" class="nav-link has-dropdown"><i class="fas fa-file"></i> <span>Arsip</span></a>
+                <ul class="dropdown-menu">
+                    <li><a class="nav-link" href="{{ url('/arsip')}}">Data Arsip</a></li>
+                </ul>
+                <ul class="dropdown-menu">
+                    <li><a class="nav-link" href="{{ url('/arsip-history')}}">Data History Dowlaod</a></li>
+                </ul>
+            </li>
+             @endif
         </ul>
     </aside>
 </div>

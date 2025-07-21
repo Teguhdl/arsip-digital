@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\ArsipController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\DashboardController;
@@ -20,6 +21,7 @@ Route::middleware('checkLogin')->group(function () {
    Route::get('/home', [DashboardController::class, 'index'])->name('dashboard');
    Route::resource('user', UserController::class);
     Route::resource('kategori-arsip', KategoriArsipController::class);
+    Route::resource('arsip', ArsipController::class);
 
    Route::get('/change-password', [UserController::class, 'showChangePasswordForm'])->name('user.show-change-password');
    Route::post('/change-password', [UserController::class, 'changePassword'])->name('user.change-password');

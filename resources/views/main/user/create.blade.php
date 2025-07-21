@@ -14,14 +14,14 @@
                 </div>
                 <div class="card-body">
                     @if ($errors->any())
-                        <div class="alert alert-danger">
-                            <strong>Terjadi kesalahan:</strong>
-                            <ul>
-                                @foreach ($errors->all() as $error)
-                                    <li>{{ $error }}</li>
-                                @endforeach
-                            </ul>
-                        </div>
+                    <div class="alert alert-danger">
+                        <strong>Terjadi kesalahan:</strong>
+                        <ul>
+                            @foreach ($errors->all() as $error)
+                            <li>{{ $error }}</li>
+                            @endforeach
+                        </ul>
+                    </div>
                     @endif
 
                     <form method="POST" action="{{ route('user.store') }}">
@@ -43,7 +43,12 @@
 
                         <div class="form-group">
                             <label for="akses">Akses</label>
-                            <input type="text" name="akses" id="akses" class="form-control" placeholder="Contoh: admin,arsip">
+                            <select name="akses" id="akses" class="form-control" required>
+                                <option value="">-- Pilih Akses --</option>
+                                <option value="Administrator">Administrator</option>
+                                <option value="Petugas">Petugas</option>
+                                <option value="User">User</option>
+                            </select>
                         </div>
 
                         <button type="submit" class="btn btn-primary">Simpan</button>
