@@ -33,35 +33,37 @@
               </thead>
               <tbody>
                 @forelse($kategori as $index => $item)
-                  <tr>
-                    <td class="text-center">{{ $index + 1 }}</td>
-                    <td>{{ $item->nama_kategori }}</td>
-                    <td>{{ $item->kode_kategori }}</td>
-                   <td>{{ $item->induk ? $item->induk->nama_kategori : '-' }}</td>
-                    <td>
-                      <div id="qrcode-{{ $item->id }}"></div>
-                      <script>
-                        new QRCode(document.getElementById("qrcode-{{ $item->id }}"), {
-                          text: "{{ $item->kode_kategori }}",
-                          width: 64,
-                          height: 64
-                        });
-                      </script>
-                    </td>
-                    <td>
-                      <a href="{{ route('kategori-arsip.edit', $item->id) }}" class="btn btn-warning btn-sm">Edit</a>
+                <tr>
+                  <td class="text-center">{{ $index + 1 }}</td>
+                  <td>{{ $item->nama_kategori }}</td>
+                  <td>{{ $item->kode_kategori }}</td>
+                  <td>{{ $item->induk ? $item->induk->nama_kategori : '-' }}</td>
+                  <td>
+                    <div id="qrcode-{{ $item->id }}"></div>
+                    <script>
+                      new QRCode(document.getElementById("qrcode-{{ $item->id }}"), {
+                        text: "{{ $item->kode_kategori }}",
+                        width: 64,
+                        height: 64
+                      });
+                    </script>
+                  </td>
+                  <td>
+                    <button class="btn btn-info btn-sm" data-toggle="modal" data-target="#qrModal-{{ $item->id }}">Lihat QR</button>
 
-                      <form action="{{ route('kategori-arsip.destroy', $item->id) }}" method="POST" id="delete-form-{{ $item->id }}" style="display:inline-block;">
-                        @csrf
-                        @method('DELETE')
-                        <button type="button" class="btn btn-danger btn-sm" onclick="confirmDelete({{ $item->id }})">Delete</button>
-                      </form>
-                    </td>
-                  </tr>
+                    <a href="{{ route('kategori-arsip.edit', $item->id) }}" class="btn btn-warning btn-sm">Edit</a>
+
+                    <form action="{{ route('kategori-arsip.destroy', $item->id) }}" method="POST" id="delete-form-{{ $item->id }}" style="display:inline-block;">
+                      @csrf
+                      @method('DELETE')
+                      <button type="button" class="btn btn-danger btn-sm" onclick="confirmDelete({{ $item->id }})">Delete</button>
+                    </form>
+                  </td>
+                </tr>
                 @empty
-                  <tr>
-                    <td colspan="6" class="text-center">Belum ada kategori arsip.</td>
-                  </tr>
+                <tr>
+                  <td colspan="6" class="text-center">Belum ada kategori arsip.</td>
+                </tr>
                 @endforelse
               </tbody>
             </table>
@@ -71,9 +73,35 @@
     </div>
   </div>
 </section>
+@foreach($kategori as $item)
+<div class="modal fade" id="qrModal-{{ $item->id }}" tabindex="-1" role="dialog" aria-labelledby="qrModalLabel{{ $item->id }}" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content border-0 rounded-lg shadow">
+      <div class="modal-header bg-primary text-white">
+        <h5 class="modal-title" id="qrModalLabel{{ $item->id }}">QR Kategori Arsip</h5>
+        <button type="button" class="close text-white" data-dismiss="modal" aria-label="Tutup">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body text-center">
+        <p class=" mb-3">Kode: <strong>{{ $item->nama_kategori }}</strong></p>
+        
+        <!-- Wrapper agar QR benar-benar di tengah -->
+        <div class="d-flex justify-content-center mb-3">
+          <div id="qrcode-modal-{{ $item->id }}" class="bg-white rounded shadow-sm p-3"></div>
+        </div>
 
-<!-- Include QRCode.js -->
+        <button class="btn btn-success px-4" onclick="downloadQR({{ $item->id }}, '{{ $item->kode_kategori }}')">
+          <i class="fas fa-download mr-1"></i> Download QR
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+@endforeach
 
+
+<!-- === Script untuk Generate & Download QR Modal === -->
 <script>
   function confirmDelete(id) {
     Swal.fire({
@@ -90,6 +118,27 @@
       }
     });
   }
+
+  function downloadQR(id, filename) {
+    const qrCanvas = document.querySelector('#qrcode-modal-' + id + ' canvas');
+    if (qrCanvas) {
+      const link = document.createElement('a');
+      link.href = qrCanvas.toDataURL("image/png");
+      link.download = filename + ".png";
+      link.click();
+    } else {
+      Swal.fire('Gagal', 'QR Code belum dimuat.', 'error');
+    }
+  }
+
+  // Generate semua QR untuk modal
+  @foreach($kategori as $item)
+    new QRCode(document.getElementById("qrcode-modal-{{ $item->id }}"), {
+      text: "{{ $item->kode_kategori }}",
+      width: 200,
+      height: 200
+    });
+  @endforeach
 </script>
 
 @endsection

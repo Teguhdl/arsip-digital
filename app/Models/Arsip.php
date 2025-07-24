@@ -1,4 +1,4 @@
-<?php 
+<?php
 
 // app/Models/Arsip.php
 
@@ -23,7 +23,8 @@ class Arsip extends Model
     {
         return $this->belongsTo(KategoriArsip::class, 'kategori_arsip_id');
     }
+    public function user()
+    {
+        return $this->belongsTo(User::class , 'user_id');
+    }
 }
-
-
-?>
