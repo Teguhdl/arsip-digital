@@ -59,7 +59,6 @@
           </dl>
 
           {{-- QR Code --}}
-          @if($arsip->file)
           <div class="mt-5 text-center">
             <h6 class="mb-2 font-weight-bold">QR Code Akses File</h6>
             <div class="d-flex justify-content-center">
@@ -67,7 +66,6 @@
             </div>
             <button id="download-qr" class="btn btn-outline-primary btn-sm mt-2">Download QR</button>
           </div>
-          @endif
         </div>
       </div>
     </div>
@@ -86,7 +84,7 @@
     const qrContainer = document.getElementById("qr-code");
 
     const qr = new QRCode(qrContainer, {
-      text: "{{ $arsip->kode_arsip }}", // Bisa diganti ke URL file jika perlu
+      text: "{{ $arsip->kode_arsip }}", 
       width: 200,
       height: 200
     });

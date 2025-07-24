@@ -6,6 +6,7 @@ use App\Models\Arsip;
 use App\Models\KategoriArsip;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
+use Illuminate\Support\Facades\Storage;
 
 class ArsipController extends Controller
 {
@@ -92,7 +93,12 @@ class ArsipController extends Controller
     public function destroy($id)
     {
         $arsip = Arsip::findOrFail($id);
+
+        if ($arsip->file && Storage::disk('public')->exists($arsip->file)) {
+            Storage::disk('public')->delete($arsip->file);
+        }
         $arsip->delete();
+
         return redirect()->route('arsip.index')->with('success', 'Arsip berhasil dihapus');
     }
 }
