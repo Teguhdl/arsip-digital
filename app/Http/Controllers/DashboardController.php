@@ -1,16 +1,25 @@
 <?php
 
 namespace App\Http\Controllers;
-
+use App\Models\UserModel;
+use App\Models\KategoriArsip;
+use App\Models\Arsip;
 use Illuminate\Http\Request;
-use App\Models\Kas;
-use App\Models\transaksiModel;
-use Carbon\Carbon;
 
 class DashboardController extends Controller
 {
     public function index(Request $request)
     {
-        return view('main.dashboard');
+        $jumlahPetugas = UserModel::where('akses', 'Petugas')->count();
+        $jumlahUser = UserModel::where('akses', 'User')->count();
+        $jumlahKategori = KategoriArsip::count();
+        $jumlahArsip = Arsip::count();
+
+        return view('main.dashboard', compact(
+            'jumlahPetugas',
+            'jumlahUser',
+            'jumlahKategori',
+            'jumlahArsip'
+        ));
     }
 }
