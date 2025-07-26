@@ -7,7 +7,7 @@
             <a href="{{ url('/home')}}">AWH</a>
         </div>
 
-         @php
+        @php
             $akses = session('user.akses', []);
         @endphp
 
@@ -26,7 +26,7 @@
                 </ul>
             </li>
             @endif
-             @if($akses === 'Administrator' || $akses === 'Petugas')
+            @if($akses === 'Administrator' || $akses === 'Petugas')
             <li class="menu-header">Data Arsip</li>
             <li class="nav-item dropdown">
                 <a href="#" class="nav-link has-dropdown"><i class="fas fa-file"></i> <span>Kategori</span></a>
@@ -40,10 +40,20 @@
                     <li><a class="nav-link" href="{{ url('/arsip')}}">Data Arsip</a></li>
                 </ul>
                 <ul class="dropdown-menu">
-                    <li><a class="nav-link" href="{{ url('/arsip-history')}}">Data History Dowlaod</a></li>
+                    <li><a class="nav-link" href="{{ url('/arsip-history')}}">Data History Download</a></li>
                 </ul>
             </li>
-             @endif
+            @endif
+
+            @if($akses === 'Administrator' || $akses === 'Petugas' || $akses === 'User')
+            <li class="menu-header">Data Arsip</li>
+            <li class="nav-item dropdown">
+                <a href="#" class="nav-link has-dropdown"><i class="fas fa-file"></i> <span>Arsip</span></a>
+                <ul class="dropdown-menu">
+                    <li><a class="nav-link" href="{{ url('/arsip')}}">Data Arsip</a></li>
+                </ul>
+            </li>
+            @endif
         </ul>
     </aside>
 </div>

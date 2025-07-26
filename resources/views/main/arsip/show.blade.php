@@ -17,21 +17,25 @@
         {{-- Preview File --}}
         <div class="col-md-6">
           @if($arsip->file)
-            @php $ext = pathinfo($arsip->file, PATHINFO_EXTENSION); @endphp
-            <div class="text-center mb-3">
-              <h5 class="font-weight-bold">Preview Arsip</h5>
-            </div>
-            <div class="border p-2 rounded shadow-sm bg-light text-center">
-              @if(in_array($ext, ['pdf']))
-                <embed src="{{ asset('storage/' . $arsip->file) }}" type="application/pdf" width="100%" height="500px" />
-              @elseif(in_array($ext, ['jpg', 'jpeg', 'png']))
-                <img src="{{ asset('storage/' . $arsip->file) }}" alt="Preview Arsip" class="img-fluid rounded shadow">
-              @else
-                <a href="{{ asset('storage/' . $arsip->file) }}" class="btn btn-outline-primary" target="_blank">Download File</a>
-              @endif
-            </div>
+          @php $ext = pathinfo($arsip->file, PATHINFO_EXTENSION); @endphp
+          <div class="text-center mb-3">
+            <h5 class="font-weight-bold">Preview Arsip</h5>
+          </div>
+          <div class="border p-2 rounded shadow-sm bg-light text-center">
+            @if(in_array($ext, ['pdf']))
+            <embed src="{{ asset('storage/' . $arsip->file) }}" type="application/pdf" width="100%" height="500px" />
+            @elseif(in_array($ext, ['jpg', 'jpeg', 'png']))
+            <img src="{{ asset('storage/' . $arsip->file) }}" alt="Preview Arsip" class="img-fluid rounded shadow">
+            @else
+            <a href="{{ asset('storage/' . $arsip->file) }}" class="btn btn-outline-primary" target="_blank">Download File</a>
+            @endif
+             @if(in_array($ext, ['pdf', 'jpg', 'jpeg', 'png']))
+            <a href="{{ route('arsip.download', $arsip->id) }}" class="btn btn-outline-success mt-3" target="_blank">Download File</a>
+            @endif
+            
+          </div>
           @else
-            <p class="text-muted">Tidak ada file arsip.</p>
+          <p class="text-muted">Tidak ada file arsip.</p>
           @endif
         </div>
 
@@ -64,7 +68,8 @@
             <div class="d-flex justify-content-center">
               <div id="qr-code"></div>
             </div>
-            <button id="download-qr" class="btn btn-outline-primary btn-sm mt-2">Download QR</button>
+            <button id="download-qr" class="btn btn-outline-primary btn-sm mt-3">Download QR</button>
+
           </div>
         </div>
       </div>
@@ -80,17 +85,17 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
 
 <script>
-  document.addEventListener('DOMContentLoaded', function () {
+  document.addEventListener('DOMContentLoaded', function() {
     const qrContainer = document.getElementById("qr-code");
 
     const qr = new QRCode(qrContainer, {
-      text: "{{ $arsip->kode_arsip }}", 
+      text: "{{ $arsip->kode_arsip }}",
       width: 200,
       height: 200
     });
 
-    document.getElementById('download-qr').addEventListener('click', function () {
-      setTimeout(function () {
+    document.getElementById('download-qr').addEventListener('click', function() {
+      setTimeout(function() {
         const img = qrContainer.querySelector('img') || qrContainer.querySelector('canvas');
         if (img) {
           const link = document.createElement('a');

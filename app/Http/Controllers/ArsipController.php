@@ -7,6 +7,9 @@ use App\Models\KategoriArsip;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Storage;
+use App\Models\ArsipDownloadHistory;
+use Illuminate\Support\Facades\Auth;
+
 
 class ArsipController extends Controller
 {
@@ -100,5 +103,24 @@ class ArsipController extends Controller
         $arsip->delete();
 
         return redirect()->route('arsip.index')->with('success', 'Arsip berhasil dihapus');
+    }
+
+    public function download($id)
+    {
+        $arsip = Arsip::findOrFail($id);
+
+        if (!$arsip->file || !Storage::disk('public')->exists($arsip->file)) {
+            return redirect()->back()->with('error', 'File tidak ditemukan.');
+        }
+
+        // Simpan history unduhan
+        ArsipDownloadHistory::create([
+            'arsip_id' => $arsip->id,
+           'user_id' => session('user.id'),
+            'ip_address' => request()->ip(),
+            'downloaded_at' => now(),
+        ]);
+
+        return Storage::disk('public')->download($arsip->file, $arsip->judul . '.' . pathinfo($arsip->file, PATHINFO_EXTENSION));
     }
 }

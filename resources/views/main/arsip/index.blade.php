@@ -10,7 +10,9 @@
       <div class="breadcrumb-item">Arsip</div>
     </div>
   </div>
-
+    @php
+            $akses = session('user.akses', []);
+        @endphp
   <div class="card">
     <div class="card-header justify-content-between">
       <h4>Daftar Arsip</h4>
@@ -37,13 +39,15 @@
               <td>{{ $a->kategori->nama_kategori ?? '-' }}</td>
               <td>
                 <a href="{{ route('arsip.show', $a->id) }}" class="btn btn-info btn-sm">Detail</a>
+                @if($akses === 'Administrator' || $akses === 'Petugas')
                 <a href="{{ route('arsip.edit', $a->id) }}" class="btn btn-warning btn-sm">Edit</a>
-
                 <form action="{{ route('arsip.destroy', $a->id) }}" method="POST" id="delete-form-{{ $a->id }}" style="display:inline-block;">
                   @csrf
                   @method('DELETE')
                   <button type="button" class="btn btn-danger btn-sm" onclick="confirmDelete({{ $a->id }}, '{{ $a->judul }}')">Hapus</button>
                 </form>
+                @endif
+
               </td>
             </tr>
             @empty
