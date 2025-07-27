@@ -45,7 +45,7 @@
             </li>
             @endif
 
-            @if($akses === 'Administrator' || $akses === 'Petugas' || $akses === 'User')
+            @if($akses === 'User')
             <li class="menu-header">Data Arsip</li>
             <li class="nav-item dropdown">
                 <a href="#" class="nav-link has-dropdown"><i class="fas fa-file"></i> <span>Arsip</span></a>
