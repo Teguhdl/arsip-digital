@@ -1,0 +1,13 @@
+<IfModule mod_rewrite.c>
+    RewriteEngine On
+
+    # Jika file atau folder ada di public, load langsung
+    RewriteCond %{REQUEST_URI} !^/index\.php
+    RewriteCond %{REQUEST_FILENAME} !-f
+    RewriteCond %{REQUEST_FILENAME} !-d
+    RewriteCond %{REQUEST_URI} !^/public/
+    RewriteRule ^(.*)$ public/$1 [L]
+
+    # Laravel route handling
+    RewriteRule ^ index.php [L]
+</IfModule>
