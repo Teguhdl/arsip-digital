@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::table('arsip', function (Blueprint $table) {
             $table->unsignedBigInteger('user_id')->nullable()->after('file');
-            $table->foreign('user_id')->references('id')->on('users')->onDelete('set null');
+            $table->foreign('user_id')->references('id')->on('user_login')->onDelete('set null');
         });
     }
 
