@@ -43,6 +43,13 @@
                     <li><a class="nav-link" href="{{ url('/arsip-history')}}">Data History Download</a></li>
                 </ul>
             </li>
+            <li class="menu-header">Scanner</li>
+              <li class="nav-item dropdown">
+                <a href="#" class="nav-link has-dropdown"><i class="fas fa-file"></i> <span>Scan</span></a>
+                <ul class="dropdown-menu">
+                    <li><a class="nav-link" href="{{ url('/scan-qr-code')}}">Scan QR Code</a></li>
+                </ul>
+            </li>
             @endif
 
             @if($akses === 'User')

@@ -50,7 +50,7 @@
                   </td>
                   <td>
                     <button class="btn btn-info btn-sm" data-toggle="modal" data-target="#qrModal-{{ $item->id }}">Lihat QR</button>
-
+                    <a href="{{ route('kategori-arsip.show', $item->id) }}" class="btn btn-warning btn-sm">Detail</a>
                     <a href="{{ route('kategori-arsip.edit', $item->id) }}" class="btn btn-warning btn-sm">Edit</a>
 
                     <form action="{{ route('kategori-arsip.destroy', $item->id) }}" method="POST" id="delete-form-{{ $item->id }}" style="display:inline-block;">

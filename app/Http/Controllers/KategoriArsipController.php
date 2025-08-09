@@ -4,6 +4,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\KategoriArsip;
+use App\Models\Arsip;
 use Illuminate\Http\Request;
 
 class KategoriArsipController extends Controller
@@ -63,5 +64,13 @@ class KategoriArsipController extends Controller
         $kategori = KategoriArsip::findOrFail($id);
         $kategori->delete();
         return redirect()->route('kategori-arsip.index')->with('success', 'Kategori berhasil dihapus');
+    }
+
+    public function show($id)
+    {
+        $kategori = KategoriArsip::with('anak')->findOrFail($id);
+        $arsip = Arsip::where('kategori_arsip_id', $id)->with('kategori')->get();
+
+        return view('main.kategori_arsip.show', compact('kategori', 'arsip'));
     }
 }

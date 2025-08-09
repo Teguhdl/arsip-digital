@@ -59,7 +59,7 @@
             <dd class="col-sm-8">{{ $arsip->created_at->format('d-m-Y H:i') }}</dd>
 
             <dt class="col-sm-4">Diupload Oleh</dt>
-            <dd class="col-sm-8">{{ $arsip->user->name ?? '-' }}</dd>
+            <dd class="col-sm-8">{{ $arsip->user->nama_user ?? '-' }}</dd>
           </dl>
 
           {{-- QR Code --}}

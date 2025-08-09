@@ -7,6 +7,7 @@ use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\KategoriArsipController;
 use App\Http\Controllers\ArsipDownloadHistoryController;
+use App\Http\Controllers\ScanController;
 
 Route::get('/', function () {
     return redirect()->route('login');
@@ -25,7 +26,8 @@ Route::middleware('checkLogin')->group(function () {
     Route::resource('arsip', ArsipController::class);
     Route::get('/arsip/download/{id}', [ArsipController::class, 'download'])->name('arsip.download');
     Route::get('/arsip-history', [ArsipDownloadHistoryController::class, 'index'])->name('arsip.history');
-
+    Route::get('/scan-qr-code', [ScanController::class, 'index'])->name('scan.index');
+    Route::post('/scan-process', [ScanController::class, 'process'])->name('scan.process');
 
     Route::get('/change-password', [UserController::class, 'showChangePasswordForm'])->name('user.show-change-password');
     Route::post('/change-password', [UserController::class, 'changePassword'])->name('user.change-password');
