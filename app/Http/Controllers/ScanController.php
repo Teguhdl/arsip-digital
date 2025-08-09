@@ -18,7 +18,7 @@ class ScanController extends Controller
         $qrData = $request->input('qr_data');
         $kategori = KategoriArsip::where('kode_kategori', $qrData)->first();
         if ($kategori) {
-            return redirect()->route('kategori.show', $kategori->id);
+            return redirect()->route('kategori-arsip.show', $kategori->id);
         }
 
         $arsip = Arsip::where('kode_arsip', $qrData)->first();
